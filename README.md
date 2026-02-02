@@ -1,14 +1,13 @@
-# 🎧 Mile End Records | AI Concierge (Isobel)
+# 🎧 Mile End Records | AI Music Concierge (Isobel)
 
-> **TSE Case Study Assignment** > **Candidate:** [Your Name]  
-> **Target Role:** Technical Support Engineer (TSE)  
-> **Platform:** Botpress Cloud  
-> **Location Focus:** Mile End, Montreal
-
+> **TSE Case Study Assignment** > **Candidate:** Miguel Somarriba
+> **Target Role:** Technical Support Engineer 
+> **Platform:** Botpress
+> 
 ---
 
 ## 📍 Project Overview
-This project features **Isobel**, an AI assistant for *Mile End Records*, a boutique vinyl shop in Montreal. The goal was to build a bot that balances high-end technical logic with a distinct, local brand voice, solving for both customer support (FAQs) and sales discovery (Recommendations).
+This project features **Isobel**, a custom AI assistant for *Mile End Records*, a boutique vinyl shop based in Montreal. This solution demonstrates a hybrid data sources, combining local store inventory with global music metadata to provide a specialized "Concierge" experience that mirrors the expertise of a physical record store employee.
 
 ### 🔗 Live Links
 * **Live Deployment:** [INSERT YOUR GITHUB PAGES URL HERE]
@@ -18,49 +17,39 @@ This project features **Isobel**, an AI assistant for *Mile End Records*, a bout
 
 ## 🛠️ Technical Architecture
 
-Isobel is built using a "Three-Pillar" data strategy to ensure accuracy and minimize LLM hallucination:
+Isobel utilizes 3 main sources as it's Knowledge Base
 
-| Pillar | Component | Purpose |
+| Pillar | Source | Purpose |
 | :--- | :--- | :--- |
-| **Structured** | Botpress Tables | Manages real-time inventory (Artist, Album, Price, Stock). |
-| **Unstructured** | Knowledge Base | Handles "Ticket Deflection" for store hours, vinyl grading, and care tips. |
-| **Dynamic** | iTunes Search API | Fetches live album data for personalized user recommendations. |
-
-
+| **Structured** | **Botpress Tables** | Manages real-time **Inventory** (Artist, Album, Price, and Stock status). |
+| **Unstructured** | **FAQ PDF** | Provides "Ground Truth" for **Store Policies**, vinyl grading (VG+, M), and care tips. |
+| **Dynamic** | **TheAudioDB API** | Fetches live artist biographies and album metadata for personalized **Recommendations**. |
 
 ---
 
 ## ✨ Key Features
 
-### 1. The "Mile End" Persona
-Isobel is programmed with a specific "Record Store Employee" persona—knowledgeable, inclusive, and Montreal-aware. She uses variables to maintain context-aware conversations (e.g., addressing users by name and referencing previous genre interests).
+### 1. Context-Aware "Mile End" Persona
+Isobel is designed with a "Record Store Employee" persona—knowledgeable, inclusive, and locally-aware. She uses session variables to track the user's name and genre preferences, ensuring the conversation feels like a high-touch human interaction rather than a transactional script.
 
-### 2. Smart Recommendation Engine (API)
-Using an **Execute Code** block, the bot queries the iTunes API to provide real-time suggestions based on user input. 
-* **TSE Logic:** Implemented `try/catch` error handling and empty-state fallbacks to ensure the UI never "breaks" if an artist isn't found.
+### 2. Global Music Discovery (API Integration)
+Using an **Execute Code** block, the bot queries **TheAudioDB API** to provide deep-dive recommendations.
+I implemented robust error handling to manage "Artist Not Found" scenarios and API timeouts. In the event of an API failure, the bot provides a curated "Staff Pick" fallback to maintain a seamless user journey.
 
-### 3. Integrated Knowledge Base (KB)
-The KB acts as the "Ground Truth" for store policies. If a user asks about **Vinyl Grading (VG+ vs M)**, the bot pulls specifically from the store’s standards rather than guessing, reducing the need for human staff intervention.
+### 3. Automated Ticket Deflection (KB)
+By integrating a specialized **FAQ PDF** into the Botpress Knowledge Base, Isobel answers common support queries (e.g., *"What is your return policy?"* or *"What does a VG+ grading mean?"*) instantly. This demonstrates the platform's ability to reduce low-level support volume for human agents.
 
 ---
 
 ## 🧠 Technical Decisions & Troubleshooting
 
-* **Proactive Engagement:** I utilized the `Conversation Started` event trigger. This ensures a proactive welcome message, increasing user engagement compared to waiting for a user to type.
-* **Logic over Hallucination:** I implemented an **AI Task** to translate vague "moods" (e.g., "I'm feeling moody and dark") into concrete genres (e.g., "Post-Punk, Gothic Rock") before querying the API.
-* **Edge Case Management:** To handle potential API timeouts, I set a default "Staff Pick" recommendation so the user journey is never interrupted.
-
----
-
-## 🚀 Future Roadmap (The "TAM" Perspective)
-If this were a production deployment for a high-value client, my next steps would be:
-1.  **E-commerce Integration:** Connecting the `Inventory` table to a live Shopify backend for real-time purchasing.
-2.  **Sentiment-Based Escalation:** Using Botpress logic to detect frustrated users and automatically escalate to a human agent via Zendesk or Intercom.
-3.  **Analytics Tracking:** Implementing "Goal" nodes to track which recommendations lead to "Waitlist" sign-ups to calculate ROI for the client.
+* **Proactive Logic:** I utilized the `Conversation Started` trigger to ensure an immediate, warm welcome. The bot captures the user's name early to personalize all subsequent responses from the Tables and API.
+* **Optimized Search:** For the structured data queries, I used **Find Records** logic that handles partial matches in the Inventory table (e.g., a search for "Radiohead" will correctly identify "Radiohead - Kid A" in stock).
+* **API Resilience:** During development, I prioritized the use of `try/catch` blocks within the Javascript Execute Code cards. This ensures that even if the external API (TheAudioDB) is unreachable, the bot remains functional and helpful.
 
 ---
 
 ## 📂 Repository Structure
 * `index.html`: The landing page hosted on GitHub Pages.
-* `PROMPT.md`: The full System Prompt and Persona instructions.
-* `Store_Policy.txt`: The source document used for the Knowledge Base.
+* `Instructions.md`: The full System Prompt and Persona instructions.
+* `FAQ.pdf`: The source document used for the Knowledge Base.

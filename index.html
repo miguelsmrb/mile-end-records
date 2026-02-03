@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mile End Records | Montreal Record Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mile End Records is a Montreal record store specializing in alternative, dance, and music gear. Chat with Archie, our Botpress Studio support agent, in the corner.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #0b0b0e;
+      --night: #111217;
+      --midnight: #1a1c24;
+      --mist: #1f222c;
+      --cloud: #0f1014;
+      --electric: #f48c34;
+      --coral: #ff9d4d;
+      --lime: #ffc85c;
+      --gold: #f48c34;
+      --slate: #b7bdc9;
+      --shadow: 0 22px 44px rgba(0, 0, 0, 0.45);
+      --radius-lg: 28px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --container: 1120px;
+    }
+
+    body {
+      font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+      color: var(--night);
+      background: var(--cloud);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: "Fraunces", "Georgia", serif;
+      letter-spacing: 0.2px;
+      color: #f4f1ea;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4.4rem);
+      line-height: 1.05;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+
+    a {
+      color: var(--electric);
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(244, 140, 52, 0.18);
+      color: #fff0df;
+      border: 1px solid rgba(244, 140, 52, 0.5);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .hero {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(244, 140, 52, 0.28), transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(255, 157, 77, 0.24), transparent 50%),
+        linear-gradient(140deg, #12131a 0%, #181a22 40%, #0f1016 100%);
+      padding: 90px 0 120px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -160px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: rgba(255, 200, 92, 0.16);
+      filter: blur(0px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card {
+      background: var(--midnight);
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--electric);
+      color: #1a0f05;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-top: 14px;
+    }
+
+    .hero-cta span {
+      color: #1a0f05;
+      font-weight: 700;
+    }
+
+    .case-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(17, 18, 23, 0.75);
+      color: #f2f2f2;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .highlight-box {
+      background: #151720;
+      color: white;
+      padding: 24px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+    }
+
+    .highlight-box p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .highlight-box h2 {
+      color: white;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--midnight);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h3 {
+      color: #f4f1ea;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(244, 140, 52, 0.2);
+      color: #ffd2a2;
+      margin-bottom: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      background: #101116;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      border: 1px dashed rgba(244, 140, 52, 0.25);
+    }
+
+    .stat span {
+      display: block;
+      font-size: 1.6rem;
+      color: #fff2e2;
+      font-weight: 700;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-title div {
+      width: 36px;
+      height: 6px;
+      background: var(--electric);
+      border-radius: 99px;
+    }
+
+    .rail {
+      background: var(--midnight);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .rail ul {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .rail li {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #13141b;
+      color: #e6e6ea;
+    }
+
+    .callout {
+      position: fixed;
+      right: 24px;
+      top: 24px;
+      background: #151821;
+      color: #f5f0e8;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 30px rgba(15, 17, 21, 0.2);
+      border: 1px solid rgba(244, 140, 52, 0.35);
+      max-width: 220px;
+      z-index: 10;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 0.95rem;
+      color: #fff1df;
+      margin-bottom: 6px;
+    }
+
+    .callout::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      top: -16px;
+      border-width: 0 12px 16px 12px;
+      border-style: solid;
+      border-color: transparent transparent #151821 transparent;
+      filter: drop-shadow(0 -6px 6px rgba(15, 17, 21, 0.1));
+    }
+
+    .arrow {
+      display: inline-block;
+      margin-top: 8px;
+      font-weight: 600;
+      color: var(--electric);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .botpress-section {
+      background: linear-gradient(130deg, #10131a 0%, #1b2130 55%, #10131a 100%);
+      color: white;
+      padding: 90px 0;
+    }
+
+    .botpress-section h2,
+    .botpress-section h3 {
+      color: white;
+    }
+
+    .botpress-section p {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .botpress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .botpress-card {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .footer {
+      padding: 60px 0 40px;
+      text-align: center;
+      background: #0b0c10;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer small {
+      display: block;
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    @media (max-width: 900px) {
+      .callout {
+        position: static;
+        margin: 24px auto 0;
+        animation: none;
+      }
+
+      .callout::after {
+        display: none;
+      }
+
+      .hero {
+        padding-bottom: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="callout">
+    <strong>Need a quick rec?</strong>
+    Archie is live in the bottom-right corner.
+    <span class="arrow">Look down-right</span>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">Montreal Record Store</div>
+        <h1>Mile End Records</h1>
+        <p>
+          Alternative and dance specialists with a deep bench of vinyl, DJ essentials, and studio-ready gear.
+          We curate every drop for music heads who want the next great listen or the right setup for the room.
+        </p>
+        <a class="hero-cta" href="#shop">Shop the collection <span>curated weekly</span></a>
+        <div class="case-chip">Mile End · Montreal, QC</div>
+      </div>
+      <div class="hero-card">
+        <h3>Now Spinning</h3>
+        <p>
+          New arrivals land every week — from shoegaze gems and indie classics to club-ready house and techno.
+          Ask Archie for personal picks, gear compatibility, or pickup info.
+        </p>
+        <div class="stats">
+          <div class="stat"><span>New</span>pressings weekly</div>
+          <div class="stat"><span>Vinyl</span>+ gear bundles</div>
+          <div class="stat"><span>Local</span>pickup in Mile End</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container split">
+      <div class="highlight-box">
+        <h2>About the Shop</h2>
+        <p>
+          Mile End Records is a Montreal boutique focused on alternative and dance music, plus a carefully
+          curated selection of turntables, mixers, cartridges, and studio accessories. The shop blends
+          community events with a modern online storefront.
+        </p>
+      </div>
+      <div class="rail">
+        <div class="section-title">
+          <div></div>
+        <h3>Store Focus</h3>
+        </div>
+        <ul>
+          <li>Alternative and indie discoveries with new pressings every week.</li>
+          <li>Dance and electronic essentials from house, techno, and ambient labels.</li>
+          <li>Music equipment and gear: turntables, headphones, monitors, and accessories.</li>
+          <li>Local Montreal artists, pop-ups, and listening sessions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop">
+    <div class="container">
+      <div class="section-title">
+        <div></div>
+        <h2>Shop by Mood</h2>
+      </div>
+      <div class="split">
+        <div class="card">
+          <div class="tag">Late-night</div>
+          <h3>Dreamy + alternative</h3>
+          <p>
+            Shoegaze, post-punk, and indie staples for headphones after dark. Ask Archie for similar artists
+            or limited pressings.
+          </p>
+        </div>
+        <div class="card">
+          <div class="tag">Dancefloor</div>
+          <h3>House + techno</h3>
+          <p>
+            Club-ready wax with deep grooves and peak-time energy. We stock essentials from modern labels
+            plus timeless classics.
+          </p>
+        </div>
+        <div class="card">
+          <div class="tag">Studio</div>
+          <h3>Gear + accessories</h3>
+          <p>
+            Turntables, cartridges, headphones, mixers, and monitoring gear. Tell Archie your setup and
+            get recommendations instantly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container split">
+      <div>
+        <div class="section-title">
+          <div></div>
+          <h2>How We Help</h2>
+        </div>
+        <div class="rail">
+          <ul>
+            <li>Record discovery based on mood, tempo, or similar artists.</li>
+            <li>Gear guidance for turntables, mixers, and setup compatibility.</li>
+            <li>Order status and local pickup coordination.</li>
+            <li>Returns, exchanges, and warranty questions.</li>
+            <li>Event updates, pre-orders, and limited drop alerts.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Meet Archie</h3>
+        <p>
+          Archie is our always-on guide for vinyl and gear. The bot lives in the bottom-right corner, ready
+          to answer questions, make recommendations, and loop in the team for anything complex.
+        </p>
+        <p>
+          Ask about pressings, cartridges, pickup times, or the best record for a late-night listen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="botpress-section" id="archie">
+    <div class="container">
+      <div class="section-title">
+        <div></div>
+        <h2>Ask Archie Anything</h2>
+      </div>
+      <p>
+        Archie is running right now in the bottom-right corner. Ask about a vinyl pressing, request a
+        dance playlist, or check if a turntable cartridge fits your setup.
+      </p>
+      <div class="botpress-grid">
+        <div class="botpress-card">
+          <h3>Try asking</h3>
+          <p>"Find me a dreamy shoegaze record for late nights."</p>
+          <p>"Which turntables pair well with powered speakers?"</p>
+          <p>"Do you have any Montreal techno releases this week?"</p>
+        </div>
+        <div class="botpress-card">
+          <h3>Shop Experience</h3>
+          <p>Warm, music-nerd energy.</p>
+          <p>Fast answers with optional deeper dives.</p>
+          <p>Clear next steps for checkout or pickup.</p>
+        </div>
+        <div class="botpress-card">
+          <h3>Need a human?</h3>
+          <p>Complex gear questions are logged for staff follow-up.</p>
+          <p>Large orders auto-request a contact email.</p>
+          <p>All escalations preserve chat context for the team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container split">
+      <div class="card">
+        <h3>Mile End Records Experience</h3>
+        <p>
+          The storefront highlights limited pressings, gear bundles, and community events. Archie keeps
+          the online experience flowing by connecting customers to inventory, shipping options, and local
+          pickup, so the staff can focus on in-person moments.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Selected Inventory Themes</h3>
+        <p>Alternative: indie rock, post-punk, dream pop.</p>
+        <p>Dance: house, techno, electronica, downtempo.</p>
+        <p>Gear: turntables, mixers, cartridges, monitoring.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <div></div>
+        <h2>Why Shop With Us</h2>
+      </div>
+      <div class="split">
+        <div class="card">
+          <h3>Curated Taste</h3>
+          <p>
+            We listen before we stock. Expect thoughtful curation and records that feel personal, not generic.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Gear Know-How</h3>
+          <p>
+            From cartridge swaps to speaker matching, we help build systems that sound the way you want.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Community First</h3>
+          <p>
+            Pop-ups, listening sessions, and local releases keep the Mile End scene thriving.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>
+        Mile End Records is a Montreal, QC record store specializing in alternative and dance music, plus
+        music equipment and gear. Archie powers customer support through Botpress Studio.
+      </p>
+      <p>
+        Start a chat from the bottom-right corner to explore records, gear, or upcoming events.
+      </p>
+      <small>&copy; 2026 Mile End Records · Montreal, QC</small>
+    </div>
+  </footer>
+
+  <!-- Botpress Webchat -->
+  <!-- Replace the script URLs below if your Botpress deploy URL changes -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2026/02/03/19/20260203195329-TFN4LA1N.js" defer></script>
+    
+</body>
+</html>

@@ -157,34 +157,6 @@
       margin-top: var(--spacing-xs);
     }
 
-    /* ===== HERO IMAGE ===== */
-    .hero {
-      padding: 0;
-      margin: 0;
-      position: relative;
-      background: var(--dark-gray);
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      display: block;
-      opacity: 0.9;
-    }
-
-    .hero-placeholder {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, var(--charcoal) 0%, var(--dark-gray) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 1.2rem;
-      font-style: italic;
-    }
-
     /* ===== INTRO SECTION ===== */
     .intro {
       background: var(--light-gray);
@@ -312,7 +284,7 @@
     }
 
     #chatbot-container {
-      min-height: 400px;
+      min-height: 500px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -322,10 +294,11 @@
       padding: var(--spacing-lg);
     }
 
-    .chatbot-placeholder {
-      color: rgba(255, 255, 255, 0.4);
+    .chatbot-note {
+      color: rgba(255, 255, 255, 0.6);
       font-style: italic;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
+      margin-top: var(--spacing-md);
     }
 
     /* ===== INFO BOXES ===== */
@@ -408,28 +381,6 @@
       color: rgba(255, 255, 255, 0.5);
     }
 
-    /* ===== CTA BUTTON (OPTIONAL) ===== */
-    .cta-button {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--black);
-      padding: var(--spacing-sm) var(--spacing-lg);
-      border-radius: 6px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      border: 2px solid var(--gold);
-    }
-
-    .cta-button:hover {
-      background: transparent;
-      color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-    }
-
     /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 768px) {
       :root {
@@ -440,11 +391,6 @@
 
       header {
         padding: var(--spacing-lg) var(--spacing-md);
-      }
-
-      .hero-image,
-      .hero-placeholder {
-        height: 300px;
       }
 
       .grid {
@@ -493,18 +439,11 @@
     </div>
   </header>
 
-  <!-- ===== HERO IMAGE ===== -->
-  <section class="hero">
-    <!-- Replace with actual image URL or remove placeholder div -->
-    <!-- <img src="hero-image.jpg" alt="Vinyl records collection at Mile End Records" class="hero-image"> -->
-    </div>
-  </section>
-
   <!-- ===== INTRO SECTION ===== -->
   <section class="intro">
     <div class="container">
       <p>
-        Born in Montreal's creative heart, Mile End Records is more than a shop. We're your partner in musical discovery.
+        Born in Montreal's creative heart, Mile End Records is more than a shop—we're your partner in musical discovery.
         From underground techno to indie classics, every album is hand-selected with passion and purpose.
       </p>
       <p>
@@ -568,17 +507,14 @@
       <h2 class="section-header">Meet Isobel, Your Vinyl Guide</h2>
       <p>
         Chat with our AI assistant 24/7. Search our inventory, get personalized recommendations,
-        or learn about vinyl care. Isobel knows music and she's here to help you discover your next favorite album!
+        or learn about vinyl care. Isobel knows music—and she's here to help you discover your next favorite album.
       </p>
       
-      <!-- ===== BOTPRESS CHATBOT GOES HERE ===== -->
+      <!-- ===== BOTPRESS CHATBOT CONTAINER ===== -->
       <div id="chatbot-container">
-        <div class="chatbot-placeholder">
-          💬 Chatbot will appear here once Botpress script is added
-        </div>
+        <!-- Chatbot will render here automatically -->
       </div>
-      <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
-      <script src="https://files.bpcontent.cloud/2026/02/02/23/20260202232840-7AOULZHB.js" defer></script>
+      <p class="chatbot-note">👆 Click the chat icon to start talking with Isobel</p>
     </div>
   </section>
 
@@ -660,6 +596,10 @@
       <p class="copyright">&copy; 2026 Mile End Records | Montreal, QC</p>
     </div>
   </footer>
-  
+
+  <!-- ===== BOTPRESS WEBCHAT SCRIPTS ===== -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2026/02/02/23/20260202232840-7AOULZHB.js" defer></script>
+
 </body>
 </html>

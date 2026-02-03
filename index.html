@@ -260,45 +260,51 @@
       font-weight: 600;
     }
 
-    /* ===== CHATBOT SECTION ===== */
-    .chatbot-section {
+    /* ===== CHAT CTA SECTION ===== */
+    .chat-cta {
       background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
       color: var(--white);
       text-align: center;
+      padding: var(--spacing-xxl) var(--spacing-md);
     }
 
-    .chatbot-section .section-header {
+    .chat-cta h2 {
       color: var(--white);
+      margin-bottom: var(--spacing-md);
     }
 
-    .chatbot-section .section-header::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .chatbot-section p {
+    .chat-cta p {
       color: rgba(255, 255, 255, 0.85);
       max-width: 700px;
       margin: 0 auto var(--spacing-lg);
       font-size: 1.15rem;
     }
 
-    #chatbot-container {
-      min-height: 500px;
-      display: flex;
+    .chat-button {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: var(--spacing-lg);
+      gap: var(--spacing-sm);
+      background: var(--gold);
+      color: var(--black);
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: 2px solid var(--gold);
+      cursor: pointer;
     }
 
-    .chatbot-note {
-      color: rgba(255, 255, 255, 0.6);
-      font-style: italic;
-      font-size: 0.95rem;
-      margin-top: var(--spacing-md);
+    .chat-button:hover {
+      background: transparent;
+      color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .chat-button::before {
+      content: '💬';
+      font-size: 1.4em;
     }
 
     /* ===== INFO BOXES ===== */
@@ -408,7 +414,7 @@
       }
     }
 
-    /* ===== SCROLL EFFECTS (OPTIONAL) ===== */
+    /* ===== SCROLL EFFECTS ===== */
     @media (prefers-reduced-motion: no-preference) {
       section {
         animation: fadeInUp 0.6s ease-out;
@@ -501,20 +507,17 @@
     </ul>
   </section>
 
-  <!-- ===== CHATBOT SECTION ===== -->
-  <section class="chatbot-section">
-    <div class="container centered">
-      <h2 class="section-header">Meet Isobel, Your Vinyl Guide</h2>
+  <!-- ===== CHAT WITH ISOBEL CTA ===== -->
+  <section class="chat-cta">
+    <div class="container">
+      <h2>Meet Isobel, Your AI Vinyl Guide</h2>
       <p>
-        Chat with our AI assistant 24/7. Search our inventory, get personalized recommendations,
-        or learn about vinyl care. Isobel knows music—and she's here to help you discover your next favorite album.
+        Looking for a specific record? Want personalized recommendations? Need vinyl care advice?
+        Isobel is available 24/7 to help you discover your next favorite album.
       </p>
-      
-      <!-- ===== BOTPRESS CHATBOT CONTAINER ===== -->
-      <div id="chatbot-container">
-        <!-- Chatbot will render here automatically -->
-      </div>
-      <p class="chatbot-note">👆 Click the chat icon to start talking with Isobel</p>
+      <p style="font-size: 1rem; color: rgba(255, 255, 255, 0.7); margin-bottom: var(--spacing-xl);">
+        👉 Look for the chat button in the bottom-right corner of your screen
+      </p>
     </div>
   </section>
 
@@ -557,7 +560,7 @@
       <ul>
         <li>Email: support@mileendrecords.com</li>
         <li>Instagram: @mileendrecords</li>
-        <li>Chat with Isobel anytime above ↑</li>
+        <li>Chat with Isobel (bottom-right corner) ↘️</li>
       </ul>
     </div>
   </section>
@@ -588,7 +591,7 @@
         Ready to explore? Whether you're hunting for a specific album, discovering new genres, or just soaking in the atmosphere, Mile End Records welcomes you.
       </p>
       <p>
-        Chat with Isobel above or email us at support@mileendrecords.com to start your musical journey.
+        Chat with Isobel (see the button in the corner?) or email us at support@mileendrecords.com to start your musical journey.
       </p>
       <p>
         Your perfect record is out there—and we're here to help you find it.
@@ -600,7 +603,6 @@
   <!-- ===== BOTPRESS WEBCHAT SCRIPTS ===== -->
   <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2026/02/02/23/20260202232840-7AOULZHB.js" defer></script>
-    
 
 </body>
 </html>

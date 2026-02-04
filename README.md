@@ -155,12 +155,6 @@ The bot can also trigger **Google Calendar events** for equipment reparation req
 
 ---
 
-## 🙏 Acknowledgements
-
 Thank you to **Botpress** for the opportunity to work with the platform and demonstrate how thoughtful conversational design, operational awareness, and customer empathy can come together in a practical support solution.
 
 This project reflects a support-first mindset, where automation exists to help both customers and teams — not replace them.
-
----
-
-Happy listening 🎧

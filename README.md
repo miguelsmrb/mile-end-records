@@ -10,14 +10,12 @@
 The chatbot serves three primary goals:
 
 1. **Support customers** by answering common questions about the store, policies, vinyl care, and equipment.
-2. **Assist with music discovery** through thoughtful, taste-based recommendations.
+2. **Assist with music discovery** through thoughtful, taste-based recommendations. Recommend records on Inventory.
 3. **Support internal operations** by raising tickets and scheduling appointments.
-
-The bot is intentionally designed to avoid hallucinations or invent information. When it cannot confidently answer a question, it clearly directs users to contact a human staff member.
 
 ---
 
-## 🧠 High-Level Bot Architecture
+## 🧠 Thoughtful Bot Conversation design
 
 The bot is built around **intent-driven conversational paths**, each ending in a clear resolution:
 - An answer
@@ -73,32 +71,10 @@ Routes the user into the appropriate intent flow.
 
 **End State:**  
 - Answer provided  
-- Or escalation to human if information is missing or ambiguous  
 
 ---
 
-### 3. Inventory Lookup (Records)
-
-**Path:**  
-`User Requests Specific Record → Inventory Check`
-
-**Logic:**  
-- Queries the inventory CSV  
-- Confirms availability and stock quantity  
-- Avoids guessing if the record is not found  
-
-**Additional Behavior:**  
-- Increments `demand_counter` for the requested item  
-- Helps identify restock priorities over time  
-
-**End State:**  
-- Record confirmed in stock  
-- Record out of stock  
-- Or record not found → human handoff  
-
----
-
-### 4. Music Recommendations
+### 3. Music Recommendations
 
 **Path:**  
 `User Describes Taste → Recommendation Logic`
@@ -119,7 +95,7 @@ Routes the user into the appropriate intent flow.
 
 ---
 
-### 5. Equipment & Setup Guidance
+### 4. Equipment & Setup Guidance
 
 **Path:**  
 `User Asks About Turntables / Equipment → Equipment Advisor`
@@ -154,6 +130,4 @@ The bot can also trigger **Google Calendar events** for equipment reparation req
 
 ---
 
-Thank you to **Botpress** for the opportunity to work with the platform and demonstrate how thoughtful conversational design, operational awareness, and customer empathy can come together in a practical support solution.
-
-This project reflects a support-first mindset, where automation exists to help both customers and teams — not replace them.
+Thank you to **Botpress** for the opportunity to work with the platform!

@@ -1,55 +1,166 @@
-# 🎧 Mile End Records | AI Music Concierge (Isobel)
+# Mile End Records — Customer Support & Music Recommendation Bot
 
-> **TSE Case Study Assignment** > **Candidate:** Miguel Somarriba
-> **Target Role:** Technical Support Engineer 
-> **Platform:** Botpress
-> 
----
+This repository documents the design, logic, and functionality of the **Mile End Records Chatbot**, a fictional but production-minded customer support assistant built using **Botpress Cloud**.
 
-## 📍 Project Overview
-This project features **Isobel**, a custom AI assistant for *Mile End Records*, a boutique vinyl shop based in Montreal. This solution demonstrates a hybrid data sources, combining local store inventory with global music metadata to provide a specialized "Concierge" experience that mirrors the expertise of a physical record store employee.
-
-### 🔗 Live Links
-* **Live Deployment:** [INSERT YOUR GITHUB PAGES URL HERE]
-* **Botpress Studio:** [INSERT YOUR BOTPRESS PUBLIC LINK HERE]
+The bot is designed to support real user needs for an independent record store by combining structured knowledge, inventory awareness, recommendation logic, and clear human escalation paths.
 
 ---
 
-## 🛠️ Technical Architecture
+## 🎯 Purpose of the Bot
 
-Isobel utilizes 3 main sources as it's Knowledge Base
+The chatbot serves three primary goals:
 
-| Pillar | Source | Purpose |
-| :--- | :--- | :--- |
-| **Structured** | **Botpress Tables** | Manages real-time **Inventory** (Artist, Album, Price, and Stock status). |
-| **Unstructured** | **FAQ PDF** | Provides "Ground Truth" for **Store Policies**, vinyl grading (VG+, M), and care tips. |
-| **Dynamic** | **TheAudioDB API** | Fetches live artist biographies and album metadata for personalized **Recommendations**. |
+1. **Support customers** by answering common questions about the store, policies, vinyl care, and equipment.
+2. **Assist with music discovery** through thoughtful, taste-based recommendations.
+3. **Support internal operations** by raising tickets and scheduling appointments.
 
----
-
-## ✨ Key Features
-
-### 1. Context-Aware "Mile End" Persona
-Isobel is designed with a "Record Store Employee" persona—knowledgeable, inclusive, and locally-aware. She uses session variables to track the user's name and genre preferences, ensuring the conversation feels like a high-touch human interaction rather than a transactional script.
-
-### 2. Global Music Discovery (API Integration)
-Using an **Execute Code** block, the bot queries **TheAudioDB API** to provide deep-dive recommendations.
-I implemented robust error handling to manage "Artist Not Found" scenarios and API timeouts. In the event of an API failure, the bot provides a curated "Staff Pick" fallback to maintain a seamless user journey.
-
-### 3. Automated Ticket Deflection (KB)
-By integrating a specialized **FAQ PDF** into the Botpress Knowledge Base, Isobel answers common support queries (e.g., *"What is your return policy?"* or *"What does a VG+ grading mean?"*) instantly. This demonstrates the platform's ability to reduce low-level support volume for human agents.
+The bot is intentionally designed to avoid hallucinations or invent information. When it cannot confidently answer a question, it clearly directs users to contact a human staff member.
 
 ---
 
-## 🧠 Technical Decisions & Troubleshooting
+## 🧠 High-Level Bot Architecture
 
-* **Proactive Logic:** I utilized the `Conversation Started` trigger to ensure an immediate, warm welcome. The bot captures the user's name early to personalize all subsequent responses from the Tables and API.
-* **Optimized Search:** For the structured data queries, I used **Find Records** logic that handles partial matches in the Inventory table (e.g., a search for "Radiohead" will correctly identify "Radiohead - Kid A" in stock).
-* **API Resilience:** During development, I prioritized the use of `try/catch` blocks within the Javascript Execute Code cards. This ensures that even if the external API (TheAudioDB) is unreachable, the bot remains functional and helpful.
+The bot is built around **intent-driven conversational paths**, each ending in a clear resolution:
+- An answer
+- A recommendation
+- An operational action
+- Or a human handoff
+
+All responses are grounded in:
+- A structured knowledge base (FAQs, store guide)
+- A CSV-based inventory system
+- Explicit fallback and escalation rules
 
 ---
 
-## 📂 Repository Structure
-* `index.html`: The landing page hosted on GitHub Pages.
-* `Instructions.md`: The full System Prompt and Persona instructions.
-* `FAQ.pdf`: The source document used for the Knowledge Base.
+## 🗺️ Conversation Paths & End States
+
+### 1. Welcome & Entry Point
+
+**Path:**  
+`Start → Welcome Message`
+
+**Function:**  
+- Greets the user in a warm, record-store tone  
+- Sets expectations for what the bot can help with  
+
+**Possible Transitions:**  
+- Store information  
+- Inventory lookup  
+- Music recommendation  
+- Equipment advice  
+- Human assistance  
+
+**End State:**  
+Routes the user into the appropriate intent flow.
+
+---
+
+### 2. Store Information & FAQs
+
+**Path:**  
+`User Question → Store Info / FAQ Node`
+
+**Covers:**  
+- Store hours & location  
+- Shipping & pickup policies  
+- Returns & exchanges  
+- Vinyl grading  
+- Vinyl care & storage  
+- Equipment sales & recommendations  
+
+**Data Source:**  
+- Public-facing store guide (PDF / Knowledge Base)
+
+**End State:**  
+- Answer provided  
+- Or escalation to human if information is missing or ambiguous  
+
+---
+
+### 3. Inventory Lookup (Records)
+
+**Path:**  
+`User Requests Specific Record → Inventory Check`
+
+**Logic:**  
+- Queries the inventory CSV  
+- Confirms availability and stock quantity  
+- Avoids guessing if the record is not found  
+
+**Additional Behavior:**  
+- Increments `demand_counter` for the requested item  
+- Helps identify restock priorities over time  
+
+**End State:**  
+- Record confirmed in stock  
+- Record out of stock  
+- Or record not found → human handoff  
+
+---
+
+### 4. Music Recommendations
+
+**Path:**  
+`User Describes Taste → Recommendation Logic`
+
+**Logic:**  
+- Uses normalized genres for cleaner matching  
+- Factors in popularity and demand data  
+- Keeps recommendations grounded and relevant  
+
+**Tone:**  
+- Enthusiastic but not pushy  
+- Knowledgeable and non-judgmental  
+
+**End State:**  
+- One or more curated recommendations  
+- Optional follow-up question  
+- Or escalation if the request is too vague  
+
+---
+
+### 5. Equipment & Setup Guidance
+
+**Path:**  
+`User Asks About Turntables / Equipment → Equipment Advisor`
+
+**Covers:**  
+- Entry-level vs. mid-range turntables  
+- Speaker types (powered vs. passive)  
+- Accessories (brushes, sleeves, cleaners)  
+- Warnings against damaging equipment (e.g., suitcase turntables)  
+
+**Constraints:**  
+- No repair promises  
+- No unsupported technical claims  
+
+**End State:**  
+- General guidance provided  
+- Referral to in-store staff or trusted technicians  
+
+---
+
+## 🛠️ Operational Integrations
+
+### JIRA Issue Creation
+
+The bot is designed to support internal workflows by creating **JIRA issues** when needed.
+
+---
+
+### Google Calendar Event Creation
+
+The bot can also trigger **Google Calendar events** for equipment reparation requests.
+
+---
+
+## 🙏 Acknowledgements
+
+Thank you to **Botpress** for the opportunity to work with the platform and demonstrate how thoughtful conversational design, operational awareness, and customer empathy can come together in a practical support solution.
+
+This project reflects a support-first mindset, where automation exists to help both customers and teams — not replace them.
+
+---
+
+Happy listening 🎧

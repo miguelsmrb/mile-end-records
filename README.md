@@ -1,8 +1,7 @@
 # Mile End Records — Customer Support & Music Recommendation Bot
 
-This repository documents the design, logic, and functionality of the **Mile End Records Chatbot**, a fictional but production-minded customer support assistant built using **Botpress Cloud**.
-
-The bot is designed to support real user needs for an independent record store by combining structured knowledge, inventory awareness, recommendation logic, and clear human escalation paths.
+## Botpress Studio = https://studio.botpress.cloud/29a15d6d-7243-42d0-a8b7-d2d36317cf69/flows/wf-main?hubItemId=intver_01KCPW0RPJR7X6ATK55RP460VZ
+## Website = https://miguelsmrb.github.io/mile-end-records/
 
 ---
 
